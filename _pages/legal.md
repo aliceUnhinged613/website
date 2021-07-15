@@ -22,6 +22,9 @@ flow:
 
                 The “Linaro Website” shall mean the web site operated by or on behalf of Linaro Limited (hereinafter “We/Us/Our”) for your use, whether as a guest or a registered user. Linaro Limited is a private limited company registered in England and Wales with company number 07180318\. VAT No: 990 0273 24\. Registered Office Address Harston Mill Royston Rd Harston Cambridge CB22 7GG
 
+                * [LINARO COMMUNITY PROJECTS ANTITRUST COMPLIANCE P OLICY](/assets/downloads/LINARO%20COMMUNITY%20PROJECTS%20ANTITRUST%20COMPLIANCE%20POLICY%2003%2003%202018%20.pdf)
+                * [ARTICLES OF ASSOCIATION of LINARO LIMITED](/assets/downloads/Linaro-Articles-of-Association-New-June-2010.pdf)
+                * [HANDLING COMMERCIALLY SECRET AND SENSITIVE INTELLECTUAL PROPERTY IN LINARO](/assets/downloads/LinaroIPAndSecurity.pdf)
                 ---
 
                 ### Accessing Our site
@@ -126,7 +129,7 @@ flow:
 
                 You also have the right to access (review, correct, amend or delete) your Data by contacting Us. Individuals are responsible for providing Linaro with accurate and complete personal information, and for contacting Us if correction of such information is required. Please note that, where permitted, We may charge a nominal fee for fulfilling access requests and that to the extent permitted by Law We reserve the right to disallow unreasonable requests for access.
 
-                Please direct any questions concerning Linaro’s privacy practices or if you have any queries or requests in relation to your Data to [privacy@linaro.org](mailto:privacy@linaro.org) or Linaro Limited, Harston Mill, Harston, Cambridgeshire, CB22 7GG, United Kingdom. Requests to unsubscribe from (“opt-out”) of communications from Linaro may also be sent to unsubscribe at [privacy@linaro.org](mailto:privacy@linaro.org).
+                Please direct any questions concerning Linaro’s privacy practices or if you have any queries or requests in relation to your Data to [privacy@linaro.org](mailto:privacy@linaro.org) or Linaro Limited, Harston Mill, Harston, Cambridgeshire, CB22 7GG, United Kingdom. Requests to unsubscribe from (“opt-out”) of communications from Linaro may also be sent to unsubscribe at [remove@linaro.org](mailto:remove@linaro.org).
 
                 ---
 

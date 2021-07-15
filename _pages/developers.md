@@ -55,12 +55,6 @@ d="M1408 768q0 139-94 257t-256.5 186.5-353.5 68.5q-86 0-176-16-124 88-278 128-36
 Join us at the next [Linaro Connect](https://connect.linaro.org/) and subscribe to relevant [Linaro mailing
 lists](http://lists.linaro.org/mailman/listinfo).
 
-**New to free and open source software (FOSS)?**
-
-* See this [introduction](/blog/make-positive-difference-foss-project/) on getting involved and maximizing your
-contributions, written by Paul McKenney, [RCU](http://www.rdrop.com/users/paulmck/RCU/ "Introduction to RCU")
-Maintainer and member of Linaro’s OCTO.
-
 **Running Linaro builds on your hardware**
 
 * There are two ways to get a Linaro build on your hardware. The fastest way is to grab a milestone image and
@@ -138,14 +132,7 @@ Help on filing a bug using Launchpad can be found
 
 Internet Relay Chat (IRC) is a form of realtime Internet chat. It is mainly designed for group (many-to-many)
 communication in discussion forums called channels, but also allows one-to-one communication via private
-message. On IRC you can talk to many of the Linaro developers, about a range of topics. The [IRC
-page](http://irclogs.linaro.org/ "Linaro IRC logs") on this site shows archived conversations from the Linaro
-IRC channel.
-
-Linaro’s IRC channels are hosted on [Freenode](http://freenode.net/). Users can join **#linaro** on
-[irc.freenode.net](http://freenode.net/) to chat with Linaro developers.
-
-A complete list of Linaro IRC channels can be found [here](https://wiki-archive.linaro.org/GettingInvolved/IRC).
+message. On IRC you can talk to many of the Linaro developers, about a range of topics.
 
 </div>
 </div>

@@ -1,43 +1,30 @@
 ---
 layout: post
-title: " Linaro Developer Cloud Kubernetes as a Service"
-description: Recently, Linaro Developer Cloud has supported Kubernetes as a
-  Service, and we have finally passed all the conformance tests from CNCF as the
-  Certified Kubernetes - Hosted. The Linaro Developer Cloud Kubernetes service
-  makes it easy for you to deploy, manage, and scale Kubernetes clusters to run
-  containerised applications on the Arm64 platform.
-date: 2020-07-24T12:55:00.000Z
+title: ' Linaro Developer Cloud Kubernetes as a Service'
+description: Recently, Linaro Developer Cloud has supported Kubernetes as a Service,
+  and we have finally passed all the conformance tests from CNCF as the Certified
+  Kubernetes - Hosted. The Linaro Developer Cloud Kubernetes service makes it easy
+  for you to deploy, manage, and scale Kubernetes clusters to run containerised applications
+  on the Arm64 platform.
+date: 2020-07-24 12:55:00+00:00
 image: /assets/images/content/code_highway_under_2mb.jpg
 tags:
-  - Octavia-ingress-controller
-  - K8s-keystone-auth
-  - Magnum
-  - Linaro Developer Cloud Kubernetes
-  - Linaro
-  - Arm
-  - Arm64
-  - Linaro Data Center Group
-  - open-source cloud IAAS
-  - PAAS
-  - OpenStack
-  - Kubernetes
-  - Ceph
-  - Linaro Developer Cloud
-  - Debian
-  - CentOS
-  - OpenStack Powered Cloud
-  - AWS EKS
-  - Azure AKS
-  - Huawei Cloud
-  - CCE
-  - CNCF
-  - Octavia
-  - heat
-  - Cinder-CSI-driver
-category: Blog
+- Linaro Developer Cloud Kubernetes
+- Linaro
+- Arm
+- Linaro Data Center Group
+- PAAS
+- OpenStack
+- Kubernetes
+- Linaro Developer Cloud
+- OpenStack Powered Cloud
+related_projects:
+- CLOUD
+category: blog
 author: kevin.zhao@linaro.org
 ---
-# **Linaro Data Center Group (LDCG)**
+
+## **Linaro Data Center Group (LDCG)**
 
 The Cloud Infrastructure team in Linaro sits inside a group known as the Linaro Data Center and Cloud Group (LDCG). The Cloud Infrastructure focuses on open-source cloud IAAS, PAAS, and storage projects such as OpenStack, Kubernetes, and Ceph. The rest of LDCG spend their time working with Arm Server Architecture, Big Data, and HPC (High-Performance Computing).
 
@@ -47,9 +34,11 @@ Linaro Developer Cloud is designed to broaden the availability of the latest har
 
 Linaro Developer Cloud is based on OpenStack, Ceph and Kubernetes, leveraging both Debian and CentOS, as the underlying cloud OS infrastructure on top of ARM-based server platforms from Linaro members such as Huawei and Marvell, etc.
 
-{% include image.html path="/assets/images/content/openstack.png" class="small-inline left" alt="Openstack icon" %} Linaro Developer Cloud has been certified as [OpenStack Powered Cloud](https://www.openstack.org/marketplace/public-clouds/linaro/linaro-developer-cloud) for more than three years, and we are engaged in OpenStack and Ceph upstream to make OpenStack and Ceph easy to run and deploy on Arm64 platforms.
+{% include image.html path="/assets/images/content/openstack.png" class="small-inline left" alt="Openstack icon" %}
 
-Recently, Linaro Developer Cloud has supported Kubernetes as a Service, and we have finally passed all the conformance tests from CNCF as the “[Certified Kubernetes - Hosted](https://landscape.cncf.io/format=card-mode&selected=linaro-developer-cloud-kubernetes-service)”, together with a bunch of famous cloud providers, such as AWS EKS, Azure AKS, Huawei Cloud CCE and etc.
+Linaro Developer Cloud has been certified as OpenStack Powered Cloud (https://www.openstack.org/marketplace/public-clouds/linaro/linaro-developer-cloud) for more than three years, and we are engaged in OpenStack and Ceph upstream to make OpenStack and Ceph easy to run and deploy on Arm64 platforms.
+
+Recently, Linaro Developer Cloud has supported Kubernetes as a Service, and we have finally passed all the conformance tests from CNCF as the “[Certified Kubernetes - Hosted](https://landscape.cncf.io/card-mode?selected=linaro-developer-cloud-kubernetes-service)”, together with a bunch of famous cloud providers, such as AWS EKS, Azure AKS, Huawei Cloud CCE and etc.
 
 {% include image.html path="/assets/images/content/ldc-kubernetes-service.png" alt="LDC Kubernetes Service makes it easy for you to deploy, manage and scale Kubernetes clusters to run containerised applications on the Arm64 platform" %}
 
@@ -85,7 +74,7 @@ For more technical detailed information, we have a session “[Kubernetes as a S
 
 CNCF has the Certified Kubernetes program for different vendors’ Kubernetes service to make sure their service consistency and confirmability. The software conformance test ensures that every vendor’s version of Kubernetes supports the required APIs, as do open source community versions. For organizations using Kubernetes, conformance enables interoperability from one Kubernetes installation to the next. It allows them the flexibility to choose between vendors.
 
-Linaro Developer Cloud Kubernetes service now can offer the Kubernetes version 1.17 with OS Fedora-Coreos-Dev-Arm64. Now, it has passed the CNCF conformance test suites which includes more than 280 test cases and was [certified by CNCF](https://landscape.cncf.io/format=card-mode&selected=linaro-developer-cloud-kubernetes-service). We are the first Arm64 open source cloud to pass the CNCF conformance test and gain this certification. With this certification, Arm64 open-source platform
+Linaro Developer Cloud Kubernetes service now can offer the Kubernetes version 1.17 with OS Fedora-Coreos-Dev-Arm64. Now, it has passed the CNCF conformance test suites which includes more than 280 test cases and was [certified by CNCF](https://landscape.cncf.io/card-mode?selected=linaro-developer-cloud-kubernetes-service). We are the first Arm64 open source cloud to pass the CNCF conformance test and gain this certification. With this certification, Arm64 open-source platform
 
 {% include image.html path="/assets/images/content/certified-kubernetes.png" class="small-inline left" alt="Certified Kubernetes logo" %}
 

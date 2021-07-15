@@ -43,6 +43,12 @@ flow:
                 - title: Get in Touch
                   url: mailto:contact@linaro.org?subject=Services
                   icon: fa fa-email
+            - title: Careers
+              style: text-dark
+              buttons:
+                - title: Get in Touch
+                  url: mailto:careers@linaro.org?subject=Careers
+                  icon: fa fa-email
           item_width: "3"
         format: block
         style: text-center text-dark organisation-section
@@ -57,12 +63,8 @@ flow:
 
 ## Legal Information
 
-The Linaro legal pages/documents can be found here - [/legal/](/legal)
+The Linaro legal pages/documents can be found here - [/legal/](/legal/)
 
 ## Getting Involved with the Community
 
 For discussion around Linux and Open Source on Arm, subscribe to the lists at [https://lists.linaro.org/](https://lists.linaro.org/).
-
-## Linaro IRC
-
-For more information on our IRC channels please visit [/contact/irc/](/contact/irc/).

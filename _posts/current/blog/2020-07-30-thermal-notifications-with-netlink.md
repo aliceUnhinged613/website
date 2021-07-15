@@ -1,26 +1,24 @@
 ---
 layout: post
 title: Thermal Notifications With Netlink
-description: This blog introduces the thermal framework design and shows where
-  the notification takes place to allow the userspace to be aware of the overall
-  thermal profile of the system. In response to the lack of thermal
-  communication between the kernel and the userspace, a solution based on the
-  netlink has been implemented for Linux v5.9.
-date: 2020-07-30T12:19:31.000Z
+description: This blog introduces the thermal framework design and shows where the
+  notification takes place to allow the userspace to be aware of the overall thermal
+  profile of the system. In response to the lack of thermal communication between
+  the kernel and the userspace, a solution based on the netlink has been implemented
+  for Linux v5.9.
+date: 2020-07-30 12:19:31+00:00
 image: /assets/images/content/electricity-1288717_1920-1-.jpg
 tags:
-  - thermal framework
-  - netlink notification
-  - thermal zone
-  - thermal governor
-  - thermal zone temperature
-  - temperature threshold detection
-  - big.LITTLE
-  - thermal notifications
-  - netlink
-category: Blog
+- Thermal Framework
+- Thermal Zone
+- Thermal Notifications
+- Netlink
+related_projects:
+- PERF
+category: blog
 author: daniel.lezcano
 ---
+
 # Introduction
 
 The goal of the thermal framework is to monitor the temperature of some system components and take immediate action if they are too hot. But how can the userspace know the events occurring in the kernel or what the actions are?
@@ -33,14 +31,14 @@ This blog introduces the thermal framework design and shows where the notificati
 
 The framework provides a level of abstraction where all the actors are clearly identified:
 
-* The thermal zone is the abstraction where the hardware sensor implementation provides the backend driver to return the temperature via unified callbacks.
-* The cooling device is the abstraction of the device in charge of reducing the temperature. It could be a passive cooling device by reducing the performance of the monitored device like changing the operating point of a CPU, or an active cooling device like a fan. The former does not need extra energy to cool down, while the latter does.
-* The thermal governor is the logic which acts on the cooling device to mitigate the temperature.
+- The thermal zone is the abstraction where the hardware sensor implementation provides the backend driver to return the temperature via unified callbacks.
+- The cooling device is the abstraction of the device in charge of reducing the temperature. It could be a passive cooling device by reducing the performance of the monitored device like changing the operating point of a CPU, or an active cooling device like a fan. The former does not need extra energy to cool down, while the latter does.
+- The thermal governor is the logic which acts on the cooling device to mitigate the temperature.
 
 The way a thermal zone is monitored will depend on the sensor capabilities:
 
-* Some sensors can only give the temperature when requested, in this case the thermal zone temperature will be monitored by a periodic timer. That means the idle system will be wake up to check the temperature even if there is nothing to do.
-* Some more modern sensors can be programmed to send an interrupt when a specific threshold is reached. In this case, the system can stay fully idle, no wake up is necessary. Please note that the polling mode also introduces a latency in the temperature threshold detection; statistically speaking it is the half of the timer period. For instance, for a one second polling time, the average latency for detection will be 500ms, a duration that is far too large for modern boards which can experience thermal variance at a rate of up to 0.5°C / ms. In this case, the interrupt mode is the guarantee of a synchronous action via the interrupt handling when a temperature threshold is reached.
+- Some sensors can only give the temperature when requested, in this case the thermal zone temperature will be monitored by a periodic timer. That means the idle system will be wake up to check the temperature even if there is nothing to do.
+- Some more modern sensors can be programmed to send an interrupt when a specific threshold is reached. In this case, the system can stay fully idle, no wake up is necessary. Please note that the polling mode also introduces a latency in the temperature threshold detection; statistically speaking it is the half of the timer period. For instance, for a one second polling time, the average latency for detection will be 500ms, a duration that is far too large for modern boards which can experience thermal variance at a rate of up to 0.5°C / ms. In this case, the interrupt mode is the guarantee of a synchronous action via the interrupt handling when a temperature threshold is reached.
 
 The following figure illustrates the different components of the thermal framework and how they interact with each other on a big.LITTLE system.
 
@@ -81,9 +79,9 @@ Netlink includes a protocol version, so the processes can deal with the supporte
 
 The thermal netlink notification solution has three channels:
 
-* **Temperature sampling:** every thermal zone update sends a temperature message. If the thermal zone is in interrupt mode and the temperature is below the threshold, then no sampling will be sent until the mitigation happens. In case of polling mode, the temperature sampling will be sent at each update to all processes that are subscribed to the sampling channel.
-* **Events:** A thermal zone creation, destruction, a trip point crossed, etc… will emit an event to all processes that are subscribed to the event channel. The list of the events will be defined at the end of this blog.
-* **Commands:** The userspace can send discovery commands to get the list of the thermal zones, the trip points and the cooling devices.
+- **Temperature sampling:** every thermal zone update sends a temperature message. If the thermal zone is in interrupt mode and the temperature is below the threshold, then no sampling will be sent until the mitigation happens. In case of polling mode, the temperature sampling will be sent at each update to all processes that are subscribed to the sampling channel.
+- **Events:** A thermal zone creation, destruction, a trip point crossed, etc… will emit an event to all processes that are subscribed to the event channel. The list of the events will be defined at the end of this blog.
+- **Commands:** The userspace can send discovery commands to get the list of the thermal zones, the trip points and the cooling devices.
 
 By splitting the channels, the traffic is reduced by preventing the userspace processes to filter out the sampling or the events that aren’t of interest.
 
@@ -99,7 +97,7 @@ By splitting the channels, the traffic is reduced by preventing the userspace pr
 
 ### Commands
 
- {% include image.html path="/assets/images/content/commands.png" alt="Commands Table" %}
+{% include image.html path="/assets/images/content/commands.png" alt="Commands Table" %}
 
 The userspace implementation will be merged into the generic netlink library when the protocol is considered stable. Meanwhile sampling code \[07-22-2020] is available [here](https://git.linaro.org/people/daniel.lezcano/thermal-genl.git/).
 

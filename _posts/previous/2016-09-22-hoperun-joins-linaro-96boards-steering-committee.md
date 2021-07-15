@@ -1,7 +1,6 @@
 ---
 author: linaro
-categories:
-- News
+category: news
 date: 2016-09-22 11:57:54
 description: Jiangsu HopeRun Software has joined the 96Boards initiative as a Steering
   Committee member. This new collaboration allows HopeRun to cooperate with 96Boards
@@ -16,19 +15,16 @@ link: /news/hoperun-joins-linaro-96boards-steering-committee/
 slug: hoperun-joins-linaro-96boards-steering-committee
 tags:
 - 96Boards
-- board
 - Connect Events
-- hardware
 - Linaro
 - Linaro Connect
 - Linux
-- Linux on Arm
+- Linux On Arm
 - Open Source
-- Opensource
-- software
+- Software
 - Membership
 - Steering Committee
-title: "HopeRun\_joins\_Linaro\_96Boards Steering Committee"
+title: HopeRun joins Linaro 96Boards Steering Committee
 wordpress_id: 11582
 ---
 
@@ -47,7 +43,7 @@ The 96Boards steering committee now includes more than ten companies who are wor
 **About Linaro**
 Linaro is leading collaboration on open source development in the Arm ecosystem. The company has over 200 engineers working on consolidating and optimizing open source software for the Arm architecture, including developer tools, the Linux kernel, Arm power management, and other software infrastructure. Linaro is distribution neutral: it wants to provide the best software foundations to everyone by working upstream, and to reduce non-differentiating and costly low level fragmentation. The effectiveness of the Linaro approach has been demonstrated by Linaro’s growing membership, and by Linaro consistently being listed as one of the top five company contributors, worldwide, to Linux kernels since 3.10.
 
-To ensure commercial quality software, Linaro’s work includes comprehensive test and validation on member hardware platforms. The full scope of Linaro engineering work is open to all online. To find out more, please visit [ ]()and [http://www.96Boards.org](http://www.96Boards.org).
+To ensure commercial quality software, Linaro’s work includes comprehensive test and validation on member hardware platforms. The full scope of Linaro engineering work is open to all online. To find out more, please visit [http://www.96Boards.org](http://www.96Boards.org).
 
 **About HopeRun**
 Jiangsu HopeRun Software Co., Ltd is a leading integrated software solution and services provider headquartered in China with global offices. Founded in 2006, HopeRun today has 5,000 employees and is a member of the Information Technology Service Standards (ITSS) Working Group run by China’s MIIT (Ministry of industry and information technology). The company was recently ranked in the top 20 of companies in China with great potential by Forbes and listed as one of the Forbes China “Up-and-Comers” companies.

@@ -1,3 +1,51 @@
+/**
+ * Slugify a string
+ * @param {String} string The string to be slugified.
+ * @returns {String} Returns slugified url friendly string
+ */
+const slugify = (string) => {
+  const a =
+    "àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;";
+  const b =
+    "aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------";
+  const p = new RegExp(a.split("").join("|"), "g");
+
+  return string
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(p, (c) => b.charAt(a.indexOf(c))) // Replace special characters
+    .replace(/&/g, "-and-") // Replace & with 'and'
+    .replace(/[^\w\-]+/g, "") // Remove all non-word characters
+    .replace(/\-\-+/g, "-") // Replace multiple - with single -
+    .replace(/^-+/, "") // Trim - from start of text
+    .replace(/-+$/, ""); // Trim - from end of text
+};
+/**
+ * Gets a url param by a given name
+ * @param {String} sParam The name of a url GET param to retrieve
+ * @returns {String/Boolean} Returns the value of a param or true if not value is set
+ */
+var getUrlParameter = (sParam) => {
+  // Get the url data.
+  var sPageURL = window.location.search.substring(1),
+    urlVariables = sPageURL.split("&"),
+    sParameterName,
+    i;
+  // Loop over url variables and split  to get param name
+  for (i = 0; i < urlVariables.length; i++) {
+    sParameterName = urlVariables[i].split("=");
+    // If the param name exists
+    if (sParameterName[0] === sParam) {
+      return sParameterName[1] === undefined
+        ? true
+        : decodeURIComponent(sParameterName[1]);
+    } else {
+      return undefined;
+    }
+  }
+};
+
 $(document).ready(function () {
   // Clipboard JS
   if ($("div.highlight").length > 0) {
@@ -25,6 +73,41 @@ $(document).ready(function () {
           .tooltip("_fixTitle");
       });
     });
+  }
+  // Tagged Posts
+  if ($("#tagged_posts").length > 0) {
+    var tag = getUrlParameter("tag");
+    if (tag !== undefined) {
+      console.log(tag);
+      $(".tag_list").addClass("d-none");
+      $(`.tag_list.${slugify(tag)}`).addClass("d-block");
+      $(`#tag_cloud`).addClass("d-none");
+      $(`#view_all_tags_btn`).addClass("d-inline-block");
+      $(this).html(tag);
+      $("#view_all_tags_btn").on("click", function () {
+        window.location.replace(window.location.pathname);
+      });
+    } else {
+      $(`#tag_cloud`).removeClass("d-none");
+    }
+  }
+  // Theme Posts
+  if ($("#theme_posts").length > 0) {
+    var theme = getUrlParameter("theme");
+    // Check the value is not undefined
+    if (theme !== undefined) {
+      console.log(theme);
+      $(".theme_list").addClass("d-none");
+      $(`.theme_list.${slugify(theme)}`).addClass("d-block");
+      $(`#theme_cloud`).addClass("d-none");
+      $(`#view_all_themes_btn`).addClass("d-inline-block");
+      $(this).html(theme);
+      $("#view_all_themes_btn").on("click", function () {
+        window.location.replace(window.location.pathname);
+      });
+    } else {
+      $(`#theme_cloud`).removeClass("d-none");
+    }
   }
   if ($("#jumbotron-slider").length > 0) {
     $("#jumbotron-slider").owlCarousel({
@@ -116,6 +199,96 @@ $(document).ready(function () {
       onlyIfScroll: true,
     });
   }
+  // Grab a sample of n size from arr
+  function getRandom(arr, n) {
+    var result = new Array(n),
+      len = arr.length,
+      taken = new Array(len);
+    if (n > len)
+      throw new RangeError("getRandom: more elements taken than available");
+    while (n--) {
+      var x = Math.floor(Math.random() * len);
+      result[n] = arr[x in taken ? taken[x] : x];
+      taken[x] = --len in taken ? taken[len] : len;
+    }
+    return result;
+  }
+
+  // Other Posts
+  if ($("#other-posts-section").length > 0) {
+    var other_posts_elements = "";
+    $.getJSON("/assets/json/posts.json", function (data) {
+      var random_items = getRandom(data, 5);
+      for (let i = 0; i < random_items.length; i++) {
+        // Unlike the Recent Posts JSON file, the date in the Other Posts
+        // JSON file is formatted in "English", e.g. Thursday, February 13, 2020
+        // which can be parsed by Date.
+        var date_obj = new Date(random_items[i].date);
+        other_posts_elements += `<li class="media flex-column flex-sm-row">
+              <picture>
+                <source srcset="${
+                  random_items[i].image_webp
+                }" type="image/webp">
+                <img class="mr-3 img-thumbnail suggested_post_thumb lazyload" 
+                src="${random_items[i].image}" alt="${
+          random_items[i].title
+        } featured image">
+              </picture>
+              <div class="media-body">
+                  <a href="${random_items[i].url}">
+                      <h5 class="mt-0 mb-1">${random_items[i].title}</h5>
+                      <em class="suggested_post_date">${date_obj.toDateString()}</em>
+                      <p>
+                      ${random_items[i].description}
+                      </p>
+                  </a>
+              </div>
+          </li>`;
+      }
+      $("#other-posts-section").html(other_posts_elements);
+    }).fail(function (error) {
+      console.log(error);
+      console.log("An error has occurred when fetching recent posts.");
+    });
+  }
+  // Latest Posts
+  if ($("#latest-posts-section").length > 0) {
+    var latest_posts_elements = "";
+    $.getJSON("/assets/json/recentPosts.json", function (data) {
+      for (let i = 0; i < data.length; i++) {
+        // Need a more robust way of getting the date string because
+        // Safari doesn't cope with "-".
+        // Start by splitting the date string on a space to separate
+        // the actual date.
+        var date_split = data[i].date_published.split(' ');
+        // Now split the date into its constituent parts.
+        var date_parts = date_split[0].split('-');
+        // Javascript counts months from 0 ...
+        console.log(data[i].date_published);
+        console.log(`Year=${date_parts[0]}, month=${date_parts[1]}, day=${date_parts[2]}`);
+        var date_obj = new Date(date_parts[0], date_parts[1] - 1, date_parts[2]);
+        latest_posts_elements += `<li class="media flex-column flex-sm-row">
+              <picture>
+                <source srcset="${data[i].image_webp}" type="image/webp">
+                <img class="mr-3 img-thumbnail suggested_post_thumb lazyload" 
+                src="${data[i].image}" alt="${data[i].title} featured image">
+              </picture>
+              <div class="media-body">
+                  <a href="${data[i].url}">
+                      <h5 class="mt-0 mb-1">${data[i].title}</h5>
+                      <em class="suggested_post_date">${date_obj.toDateString()}</em>
+                      <p>
+                      ${data[i].summary}
+                      </p>
+                  </a>
+              </div>
+          </li>`;
+      }
+      $("#latest-posts-section").html(latest_posts_elements);
+    }).fail(function () {
+      console.log("An error has occurred when fetching recent posts.");
+    });
+  }
   // Theme navbar setup
   var wrapper = $("#wrapper");
   var universalNav = false;
@@ -154,11 +327,12 @@ $(document).ready(function () {
   });
 
   //   Multi-level dropdowns
-  $(".navbar .dropdown-menu > li:not(.dropdown-item)").on("click", function (
-    e
-  ) {
-    e.stopPropagation();
-  });
+  $(".navbar .dropdown-menu > li:not(.dropdown-item)").on(
+    "click",
+    function (e) {
+      e.stopPropagation();
+    }
+  );
   $(".navbar .dropdown-item").on("click", function (e) {
     var $el = $(this).children(".dropdown-toggle");
     var $parent = $el.offsetParent(".dropdown-menu");
@@ -365,7 +539,7 @@ $(document).ready(function () {
                 if (data.response.next_page && searchResults.length < limit) {
                   //   progress && progress(searchResults);
                   startPosition += 10;
-                  var nextUrl = `https://search.linaro.org/json/?fields.label=${searchLabel}&q=${searchVal}&start=${startPosition}`;
+                  var nextUrl = `https://search.linaro.org/json/?fields.label=${searchLabel}&q=${searchVal}&start=${startPosition}&sort=last_modified.desc`;
                   getSearchResults(
                     progress,
                     nextUrl,
@@ -402,7 +576,7 @@ $(document).ready(function () {
         timer = setTimeout(function () {
           var searchLabel = $("#post_search").data("search-label");
           var searchQuery = $("#search-input").val();
-          var searchUrl = `https://search.linaro.org/json/?fields.label=${searchLabel}&q=${searchQuery}&start=0`;
+          var searchUrl = `https://search.linaro.org/json/?fields.label=${searchLabel}&q=${searchQuery}&start=0&sort=last_modified.desc`;
           getSearchResults(
             0,
             searchUrl,
@@ -443,194 +617,5 @@ $(document).ready(function () {
       $("#results-container").fadeOut("fast");
       $(".close_search").hide();
     });
-  }
-});
-
-$(document).ready(function () {
-  $("#ten_years_modal").on("shown.bs.modal", function (e) {
-    var videoElement = $(this).find("video");
-    videoElement.trigger("play");
-  });
-  $("#ten_years_modal").on("hide.bs.modal", function (e) {
-    var videoElement = $(this).find("video");
-    videoElement.trigger("pause");
-  });
-  if ($("#ten_years_modal").length > 0) {
-    var confetti = {
-      maxCount: 150,
-      speed: 2,
-      frameInterval: 15,
-      alpha: 1,
-      gradient: !1,
-      start: null,
-      stop: null,
-      toggle: null,
-      pause: null,
-      resume: null,
-      togglePause: null,
-      remove: null,
-      isPaused: null,
-      isRunning: null,
-    };
-    !(function () {
-      (confetti.start = s),
-        (confetti.stop = w),
-        (confetti.toggle = function () {
-          e ? w() : s();
-        }),
-        (confetti.pause = u),
-        (confetti.resume = m),
-        (confetti.togglePause = function () {
-          i ? m() : u();
-        }),
-        (confetti.isPaused = function () {
-          return i;
-        }),
-        (confetti.remove = function () {
-          stop(), (i = !1), (a = []);
-        }),
-        (confetti.isRunning = function () {
-          return e;
-        });
-      var t =
-          window.requestAnimationFrame ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame ||
-          window.oRequestAnimationFrame ||
-          window.msRequestAnimationFrame,
-        n = ["rgba(168,0,250,", "rgba(255,0,5,", "rgba(155,195,49,"],
-        e = !1,
-        i = !1,
-        o = Date.now(),
-        a = [],
-        r = 0,
-        l = null;
-      function d(t, e, i) {
-        return (
-          (t.color =
-            n[(Math.random() * n.length) | 0] + (confetti.alpha + ")")),
-          (t.color2 =
-            n[(Math.random() * n.length) | 0] + (confetti.alpha + ")")),
-          (t.x = Math.random() * e),
-          (t.y = Math.random() * i - i),
-          (t.diameter = 10 * Math.random() + 5),
-          (t.tilt = 10 * Math.random() - 10),
-          (t.tiltAngleIncrement = 0.07 * Math.random() + 0.05),
-          (t.tiltAngle = Math.random() * Math.PI),
-          t
-        );
-      }
-      function u() {
-        i = !0;
-      }
-      function m() {
-        (i = !1), c();
-      }
-      function c() {
-        if (!i)
-          if (0 === a.length)
-            l.clearRect(0, 0, window.innerWidth, window.innerHeight), null;
-          else {
-            var n = Date.now(),
-              u = n - o;
-            (!t || u > confetti.frameInterval) &&
-              (l.clearRect(0, 0, window.innerWidth, window.innerHeight),
-              (function () {
-                var t,
-                  n = window.innerWidth,
-                  i = window.innerHeight;
-                r += 0.01;
-                for (var o = 0; o < a.length; o++)
-                  (t = a[o]),
-                    !e && t.y < -15
-                      ? (t.y = i + 100)
-                      : ((t.tiltAngle += t.tiltAngleIncrement),
-                        (t.x += Math.sin(r) - 0.5),
-                        (t.y +=
-                          0.5 * (Math.cos(r) + t.diameter + confetti.speed)),
-                        (t.tilt = 15 * Math.sin(t.tiltAngle))),
-                    (t.x > n + 20 || t.x < -20 || t.y > i) &&
-                      (e && a.length <= confetti.maxCount
-                        ? d(t, n, i)
-                        : (a.splice(o, 1), o--));
-              })(),
-              (function (t) {
-                for (var n, e, i, o, r = 0; r < a.length; r++) {
-                  if (
-                    ((n = a[r]),
-                    t.beginPath(),
-                    (t.lineWidth = n.diameter),
-                    (i = n.x + n.tilt),
-                    (e = i + n.diameter / 2),
-                    (o = n.y + n.tilt + n.diameter / 2),
-                    confetti.gradient)
-                  ) {
-                    var l = t.createLinearGradient(e, n.y, i, o);
-                    l.addColorStop("0", n.color),
-                      l.addColorStop("1.0", n.color2),
-                      (t.strokeStyle = l);
-                  } else t.strokeStyle = n.color;
-                  t.moveTo(e, n.y), t.lineTo(i, o), t.stroke();
-                }
-              })(l),
-              (o = n - (u % confetti.frameInterval))),
-              requestAnimationFrame(c);
-          }
-      }
-      function s(t, n, o) {
-        var r = window.innerWidth,
-          u = window.innerHeight;
-        window.requestAnimationFrame =
-          window.requestAnimationFrame ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame ||
-          window.oRequestAnimationFrame ||
-          window.msRequestAnimationFrame ||
-          function (t) {
-            return window.setTimeout(t, confetti.frameInterval);
-          };
-        var m = document.getElementById("confetti-canvas");
-        null === m
-          ? ((m = document.createElement("canvas")).setAttribute(
-              "id",
-              "confetti-canvas"
-            ),
-            m.setAttribute(
-              "style",
-              "display:block;z-index:999999;pointer-events:none;position:fixed;top:0"
-            ),
-            document.body.prepend(m),
-            (m.width = r),
-            (m.height = u),
-            window.addEventListener(
-              "resize",
-              function () {
-                (m.width = window.innerWidth), (m.height = window.innerHeight);
-              },
-              !0
-            ),
-            (l = m.getContext("2d")))
-          : null === l && (l = m.getContext("2d"));
-        var s = confetti.maxCount;
-        if (n)
-          if (o)
-            if (n == o) s = a.length + o;
-            else {
-              if (n > o) {
-                var f = n;
-                (n = o), (o = f);
-              }
-              s = a.length + ((Math.random() * (o - n) + n) | 0);
-            }
-          else s = a.length + n;
-        else o && (s = a.length + o);
-        for (; a.length < s; ) a.push(d({}, r, u));
-        (e = !0), (i = !1), c(), t && window.setTimeout(w, t);
-      }
-      function w() {
-        e = !1;
-      }
-    })();
-    confetti.start(2500);
   }
 });

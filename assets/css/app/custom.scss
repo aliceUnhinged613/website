@@ -8,9 +8,109 @@
   }
 }
 #wrapper {
+  .btn.btn-primary.white_on_black_btn {
+    background-color: #000;
+    color: white;
+  }
+  .tabbed_content {
+    img {
+      margin: 10px 40px;
+      object-fit: contain;
+      &.left {
+        float: left;
+      }
+      &.square-inline {
+        height: 100px;
+        width: 100px;
+        border: 1px solid #ccc;
+        padding: 10px;
+      }
+      &.right {
+        float: right;
+      }
+      &.small-inline {
+        height: 150px;
+      }
+      &.medium-inline {
+        height: 200px;
+      }
+      &.large-inline {
+        height: 250px;
+      }
+    }
+  }
+  .card-header button {
+    white-space: normal;
+    margin-right: 12px;
+    width: 100%;
+  }
+  .dotted_border_top_bottom {
+    border-top: 5px dotted #eee;
+    border-bottom: 5px dotted #eee;
+    margin-bottom: 40px !important;
+  }
+  .large_header {
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1.2;
+  }
+  .larger_type {
+    font-size: 34px;
+    @include media-breakpoint-down(md) {
+      font-size: 22px !important;
+    }
+  }
+  nav#main-navigation {
+    z-index: 999;
+  }
+  #main_content {
+    ul {
+      list-style: none;
+      li {
+        &::before {
+          content: "\2022";
+          color: $primary;
+          font-weight: bold;
+          display: inline-block;
+          width: 1em;
+          margin-left: -1em;
+        }
+        ul > li {
+          &::before {
+            content: "\2022";
+            color: transparent;
+            font-weight: bold;
+            display: block;
+            width: 0.5em;
+            left: -0.5em;
+            height: 0.5em;
+            border: 1px solid $primary;
+            border-radius: 100%;
+            position: relative;
+            top: 0.5em;
+          }
+        }
+      }
+    }
+  }
+  .blog-post-item-col {
+    a {
+      color: black;
+      &:hover {
+        text-decoration: none;
+        color: black;
+      }
+    }
+    .rounded-circle:hover {
+      transform: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      -moz-box-shadow: none;
+    }
+  }
+
   .latest-featured-post picture .post_index_header_image {
     max-width: 100%;
-    height: auto !important;
     object-fit: cover;
   }
   #feedback_response {
@@ -80,7 +180,6 @@
     margin: 0;
   }
   a.email-icon {
-    font-size: 40px;
     top: 12px;
     position: relative;
     padding-left: 4px;

@@ -1,22 +1,30 @@
 ---
 title: Projects
-description: >-
-   The projects below are only a subset of the leading edge Arm developments actively being worked on by Linaro, its member partners, and the open source community.  Join us in the common goal of accelerating your product deployment within the Arm ecosystem!
+description: "The open source projects below are only a subset of the leading
+  edge developments actively being worked on by Linaro, its member partners, and
+  the open source community.  Join us in the common goal of accelerating your
+  product deployment within the Arm ecosystem!"
 layout: flow
 permalink: /projects/
+keywords:
+  - arm open source project
+  - software
+  - open-source
+js-package: projects
 css_bundle: projects
+layout: flow
 jumbotron:
-    inner_class: dotted
-    description-class: smaller
-    class: projects_banner
-    description: The projects below are only a subset of the leading edge Arm developments actively being worked on by Linaro, its member partners, and the open source community.
-    title: Projects
-    image: /assets/images/content/engineering_background.jpg
-    buttons:
-     - title: How to become a Linaro member
-       url: /membership/
-       class: btn btn-primary
+  class: projects_banner text-center
+  title: Projects
+  image: /assets/images/content/Dots_lines_datacenter_UNDER_2MB.jpg
 flow:
-    - row: custom_include_row
-      source: projects.html
+  - row: container_row
+    sections:
+      - format: text
+        text_content:
+          text: These arm open source projects are only a subset of the leading edge Arm
+            developments actively being worked on by Linaro, its member
+            partners, and the open source community.
+  - row: custom_include_row
+    source: projects.html
 ---
